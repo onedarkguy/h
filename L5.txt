@@ -1,0 +1,363 @@
+1] React Dom & Register page
+
+Task1:
+
+Main.jsx [Src Folder]
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+
+App.jsx [Src Folder]
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Navbar from "./components/Navbar";
+
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </>
+  );
+}
+
+export default App;
+
+Navbar.jsx [Component Folder]
+import { Link } from "react-router-dom";
+
+function Navbar() {
+  return (
+    <nav style={styles.nav}>
+      <h2>My App</h2>
+      <div>
+        <Link to="/" style={styles.link}>Home</Link>
+        <Link to="/about" style={styles.link}>About</Link>
+        <Link to="/contact" style={styles.link}>Contact</Link>
+      </div>
+    </nav>
+  );
+}
+
+const styles = {
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "15px",
+    backgroundColor: "#333",
+    color: "white"
+  },
+  link: {
+    marginLeft: "15px",
+    color: "white",
+    textDecoration: "none"
+  }
+};
+
+export default Navbar;
+
+Home.jsx [Pages Folder]
+function Home() {
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Welcome to My App.</h1>
+      <p>This is the Home page of our multi-page React app. Welcome Harshal Silveru</p>
+    </div>
+  );
+}
+
+export default Home;
+
+
+About.jsx [Pages Folder]
+function About() {
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>About This App</h1>
+      <p>
+        This application is built using React and Vite.
+        It demonstrates multi-page routing using React Router.
+      </p>
+    </div>
+  );
+}
+
+export default About;
+
+Contact.jsx [Pages Folder]
+import { useState } from "react";
+
+function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Form Submitted!");
+    console.log(formData);
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Contact Us</h1>
+
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        />
+
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
+}
+
+const styles = {
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: "300px",
+    gap: "10px"
+  }
+};
+
+export default Contact; 
+
+Task2:
+
+Register.jsx [Pages Folder]
+import { useState } from "react";
+
+function Register() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    gender: "",
+    hobbies: [],
+    country: "",
+    about: "",
+    file: null
+  });
+
+  // Handle text inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  // Handle checkboxes
+  const handleCheckbox = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      setFormData({
+        ...formData,
+        hobbies: [...formData.hobbies, value]
+      });
+    } else {
+      setFormData({
+        ...formData,
+        hobbies: formData.hobbies.filter((hobby) => hobby !== value)
+      });
+    }
+  };
+
+  // Handle file upload
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      file: e.target.files[0]
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    alert("Registration Successful 🎉");
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Registration Form</h1>
+
+      <form onSubmit={handleSubmit} style={styles.form}>
+
+        {/* Username */}
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+
+        {/* Email */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        {/* Password */}
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+
+        {/* Radio Buttons */}
+        <div>
+          <p>Gender:</p>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="Male"
+              onChange={handleChange}
+            /> Male
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="Female"
+              onChange={handleChange}
+            /> Female
+          </label>
+        </div>
+
+        {/* Checkboxes */}
+        <div>
+          <p>Hobbies:</p>
+          <label>
+            <input
+              type="checkbox"
+              value="Reading"
+              onChange={handleCheckbox}
+            /> Reading
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              value="Gaming"
+              onChange={handleCheckbox}
+            /> Gaming
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              value="Traveling"
+              onChange={handleCheckbox}
+            /> Traveling
+          </label>
+        </div>
+
+        {/* Dropdown */}
+        <select
+          name="country"
+          value={formData.country}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Country</option>
+          <option value="India">India</option>
+          <option value="USA">USA</option>
+          <option value="UK">UK</option>
+        </select>
+
+        {/* Textarea */}
+        <textarea
+          name="about"
+          placeholder="Tell us about yourself"
+          value={formData.about}
+          onChange={handleChange}
+        />
+
+        {/* File Upload */}
+        <input
+          type="file"
+          onChange={handleFileChange}
+        />
+
+        {/* Buttons */}
+        <button type="submit">Register</button>
+        <button type="reset">Reset</button>
+
+      </form>
+    </div>
+  );
+}
+
+const styles = {
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    width: "350px"
+  }
+};
+
+export default Register;
+
+
+
