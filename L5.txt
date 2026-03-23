@@ -74,7 +74,7 @@ function Home() {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Welcome to My App.</h1>
-      <p>This is the Home page of our multi-page React app. Welcome Harshal Silveru</p>
+      <p>This is the Home page of our multi-page React app. Welcome </p>
     </div>
   );
 }
