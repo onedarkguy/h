@@ -112,7 +112,7 @@ import React, { useState } from "react";
     },
     {
         id:2,
-        name:"Vaishnavi",
+        name:"fread",
         roll_no:"102",
         sub:{
             maths:95,
