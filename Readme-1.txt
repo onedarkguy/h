@@ -102,7 +102,7 @@ import React, { useState } from "react";
  const StudentData=[
     {
         id:1,
-        name:"Harshal",
+        name:"john",
         roll_no:"101",
         sub:{
             maths:85,
